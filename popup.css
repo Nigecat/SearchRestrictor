@@ -1,9 +1,13 @@
 
 body {
   height: 225px;
+  background-color: #96CDCD;
 }
 
 
+textarea {
+  background-color: #D1EEEE;
+}
 
 
 /*  Radio checkbox  */
