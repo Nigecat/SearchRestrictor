@@ -1,6 +1,6 @@
 
 
-function cleanField(_class, _type, num) {
+function cleanField(_class, _type, num) {   // Function to clean up after the script from a text field
     if (_type == 1) {
         var text = document.getElementsByClassName(_class)[0].getElementsByTagName("p")[num].innerText.split(" - ");
         text[1] = text[1].split(" ");
@@ -24,50 +24,41 @@ chrome.runtime.onMessage.addListener(function (msg) {
         var urls = msg.urls;      
         var mode = msg.mode;
 
-        if (typeof urls === 'string') {
+        if (typeof urls === 'string') {     // Determine removal run mode based on how many urls are passed
             var runMode = "single";
         } else if (typeof urls === 'object') {
             var runMode = "multi";
         }
 
         if (runMode == "single") {
-            var orig = document.getElementsByClassName("gLFyf gsfi")[0].value;
-            if (!orig.includes("site:")) {
+            if (!document.getElementsByClassName("gLFyf gsfi")[0].value.includes("site:")) {    // If it is the original search, use googles inbuilt thing to restrict results
                 var query = document.getElementsByClassName("gLFyf gsfi")[0].value + " site:" + urls;
                 document.getElementsByClassName("gLFyf gsfi")[0].value = query;
                 document.getElementsByClassName("Tg7LZd")[0].click()
-            } else {
+            } else {        // This is the second time the script runs after the page reset from the first time the script searches
                 try {
-                    cleanField("gLFyf gsfi", 3, 0);
-                } catch (err) {}
-                try {
+                    cleanField("gLFyf gsfi", 3, 0);     // Clean up the fields
                     cleanField("med card-section", 1, 0);
-                } catch (err) {}
-                try {
                     cleanField("med card-section", 1, 1);
-                } catch (err) {}
-                try {
                     cleanField("gL9Hy", 2, 1);
-                } catch (err) {}
-                try {
                     cleanField("e2BEnf U7izfe", 2, 1);
                 } catch (err) {}
             }
         }
 
         else if (runMode == "multi") {
-            var results = document.getElementsByClassName("rc");
+            var results = document.getElementsByClassName("rc");        // Get all website cards on the results
             for (var i = 0; i < results.length; i++) {
                 if (results[i].getElementsByTagName("a")[2] != null) {
-                    var url = results[i].getElementsByTagName("a")[2]["host"];
+                    var url = results[i].getElementsByTagName("a")[2]["host"];  // Get the website url
                     var remove = true;
                     for (var x = 0; x < urls.length; x++) {
-                        if (url.match(new RegExp(urls[x], "gi"))) {
+                        if (url.match(new RegExp(urls[x], "gi"))) {     // Generate a regex for each url and if it doesn't match any then flag it for deletion
                             remove = false;
                         }
                     }
                     if (remove) {
-                        results[i].innerHTML = ""
+                        results[i].innerHTML = ""       // Clear the innerhtml of the element, therefor deleting it. This will shuffle the element upwards
                     }
                 }
             }
