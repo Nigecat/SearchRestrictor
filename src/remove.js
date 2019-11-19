@@ -1,4 +1,24 @@
 
+
+function cleanField(_class, _type, num) {
+    if (_type == 1) {
+        var text = document.getElementsByClassName(_class)[0].getElementsByTagName("p")[num].innerText.split(" - ");
+        text[1] = text[1].split(" ");
+        text[1].pop();
+        text[1] = text[1].join(" ");
+        document.getElementsByClassName(_class)[0].getElementsByTagName("p")[num].innerText = text.join(" - ");
+    } else if (_type == 2) {
+        var text = document.getElementsByClassName(_class)[num].innerText.split(" ");
+        text.pop();
+        document.getElementsByClassName(_class)[num].innerText = text.join(" ");
+    } else if (_type == 3) {
+        var text = document.getElementsByClassName(_class)[num].value.split(" ");
+        text.pop();
+        document.getElementsByClassName(_class)[num].value = text.join(" ");
+    }
+}
+
+
 chrome.runtime.onMessage.addListener(function (msg) {
     if (msg.job == "remove_results") {
         var urls = msg.urls;      
@@ -17,35 +37,20 @@ chrome.runtime.onMessage.addListener(function (msg) {
                 document.getElementsByClassName("gLFyf gsfi")[0].value = query;
                 document.getElementsByClassName("Tg7LZd")[0].click()
             } else {
-                var query = document.getElementsByClassName("gLFyf gsfi")[0].value;
-                query = query.split(" ");
-                query.pop();
-                query = query.join(" ");
-                document.getElementsByClassName("gLFyf gsfi")[0].value = query;
-
                 try {
-                    var text = document.getElementsByClassName("med card-section")[0].getElementsByTagName("p")[0].innerText;
-                    text = text.split(" - ");
-                    text[1] = text[1].split(" ");
-                    text[1].pop();
-                    text[1] = text[1].join(" ");
-                    text = text.join(" - ");
-                    document.getElementsByClassName("med card-section")[0].getElementsByTagName("p")[0].innerText = text;
+                    cleanField("gLFyf gsfi", 3, 0);
                 } catch (err) {}
                 try {
-                    var text = document.getElementsByClassName("med card-section")[0].getElementsByTagName("p")[1].innerText;
-                    text = text.split(" - ");
-                    text[1] = text[1].split(" ");
-                    text[1].pop();
-                    text[1] = text[1].join(" ");
-                    text = text.join(" - ");
-                    document.getElementsByClassName("med card-section")[0].getElementsByTagName("p")[1].innerText = text;
+                    cleanField("med card-section", 1, 0);
                 } catch (err) {}
                 try {
-                    var text = document.getElementsByClassName("gL9Hy")[1].innerText.split(" ");
-                    text.pop();
-                    text = text.join(" ");
-                    document.getElementsByClassName("gL9Hy")[1].innerText = text;
+                    cleanField("med card-section", 1, 1);
+                } catch (err) {}
+                try {
+                    cleanField("gL9Hy", 2, 1);
+                } catch (err) {}
+                try {
+                    cleanField("e2BEnf U7izfe", 2, 1);
                 } catch (err) {}
             }
         }
