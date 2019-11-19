@@ -1,7 +1,7 @@
 {
     "short_name": "SearchRestrictor",
     "name": "SearchRestrictor",
-    "version": "0.0.1",
+    "version": "0.1",
     "manifest_version": 2,
 
     "permissions": 
@@ -22,7 +22,7 @@
     
     "browser_action": 
     {
-        "default_title": "StackUnderflow",
+        "default_title": "SearchRestrictor",
         "default_popup": "popup.html"
     }
 }
