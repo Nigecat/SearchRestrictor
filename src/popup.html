@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet" type="text/css" href="popup.css">
-    <body>
+    <body id="background" class="bg_disabled">
         <br>
         <label class="switch">
             <input type="checkbox" id="status">
             <span class="slider round"></span>
         </label>
         <br><br>
-        <textarea rows="10" cols="50" id="urls">
+        <textarea rows="10" cols="50" id="urls" placeholder="        Please enter each url on a new line."
+                  autocomplete='off' spellcheck='false' autocorrect='off'>
             Please enter each url on a new line.
         </textarea>
     </body>
