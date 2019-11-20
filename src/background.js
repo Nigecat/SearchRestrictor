@@ -1,5 +1,5 @@
 
-chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {  // Gets called when the current tab is updated
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {  // Gets called when the current tab is updated
     if (changeInfo.status == 'complete' && tab.active) {    // If the tab is active and finished loading
         chrome.storage.local.get(['status', 'urls'], function(data) {   // Get the relevant data from the localstorage
             status = data.status;
